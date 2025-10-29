@@ -1,0 +1,60 @@
+# Copyright (C) 2025 Bryce Thuilot
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the FSF, either version 3 of the License, or (at your option) any later version.
+# See the LICENSE file in the root of this repository for full license text or
+# visit: <https://www.gnu.org/licenses/gpl-3.0.html>.
+
+name:                aoc25
+version:             0.1.0.0
+github:              "bthuilot/aoc25"
+license:             GPL-3.0-or-Later
+author:              "Bryce Thuilot"
+maintainer:          "bryce@thuilot.io"
+copyright:           "2025 Bryce Thuilot"
+
+extra-source-files:
+- README.md
+- LICENSE
+
+description:         Solutions to the Advent of Code 2025 problem set.
+
+dependencies:
+- base >= 4.7 && < 5
+
+ghc-options:
+- -Wall
+- -Wcompat
+- -Widentities
+- -Wincomplete-record-updates
+- -Wincomplete-uni-patterns
+- -Wmissing-export-lists
+- -Wmissing-home-modules
+- -Wpartial-fields
+- -Wredundant-constraints
+
+library:
+  source-dirs: src
+
+executables:
+  aoc25-exe:
+    main:                Main.hs
+    source-dirs:         app
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - aoc25
+
+tests:
+  aoc25-test:
+    main:                Spec.hs
+    source-dirs:         test
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - aoc25
