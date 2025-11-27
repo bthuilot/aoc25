@@ -43,8 +43,9 @@ type Day = [DaySolution]
 
 -- | execDay executes both parts of the 'Day' with
 -- the given input and prints results to STDOUT
-execDay :: Day -> String -> IO ()
-execDay day input = mapM_ (putStrLn . showSolution) $ zip [1..] filled
+execDay :: Day -> Maybe String -> IO ()
+execDay _  Nothing = putStrLn "no input for day"
+execDay day (Just input) = mapM_ (putStrLn . showSolution) $ zip [1..] filled
   where
     filled = day ++ replicate (2 - length day) notImplemented
     showSolution :: (Int, DaySolution) -> String
