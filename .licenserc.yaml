@@ -18,16 +18,13 @@ header:
       the FSF, either version 3 of the License, or (at your option) any later version.
       See the LICENSE file in the root of this repository for full license text or
       visit: <https://www.gnu.org/licenses/gpl-3.0.html>.
-
   paths:
     - '**/*.hs'
-    - 'Makefile'
+    - Makefile
     - '**/*.sh'
     - '**/*.yaml'
     - '**/Dockerfile'
-    - '.github/workflows/**/*.yaml'
-
-    paths-ignore:
-    - 'Setup.hs'
-
+    - .github/workflows/**/*.yaml
+  paths-ignore:
+    - Setup.hs
   comment: on-failure

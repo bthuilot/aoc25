@@ -8,18 +8,38 @@
  visit: <https://www.gnu.org/licenses/gpl-3.0.html>.
 -}
 
+{- |
+Module      :  D00
+Description :  Example Advent of Code day implementation
+Copyright   :  (c) Bryce Thuilot <bryce@thuilot.io>
+License     :  GPL-3.0-or-later
+
+Maintainer  :  bryce@thuilot.io
+Stability   :  frozen
+Portability :  portable
+
+This is an example day implementation to be copied
+as a template for implementing later days and to serve
+as a "test" when running the program to produce solutions.
+-}
+
 module Days.D00 (
   Days.D00.part1, Days.D00.part2
   ) where
 
-import Data.Char
-import AOC
+import Data.Char ( toUpper )
+import AOC ( DayResult(Ok) )
 
 
 -- Test Day
 
+-- | 'part1' is the first part of the example solution
+-- which just returns the input string
 part1 :: String -> DayResult
 part1 = Ok
 
+-- | 'part2' is the second part of the example solution
+-- which will convert all lower case letters in the input
+-- string to uppercase.
 part2 :: String -> DayResult
 part2 = Ok . map toUpper
