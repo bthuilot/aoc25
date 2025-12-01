@@ -37,10 +37,11 @@ stack test
 Below is an index to every completed day's implementation source code (containing documentation of approach) and the challenge for the day
 
 - [Day 0](src/Days/D00.hs) : *This is a test day supposed to server a placeholder until the challenge starts*
+- [Day 1](src/Days/D01.hs) : [Problem](https://adventofcode.com/2025/day/1)
 
 ... other days not completed yet
 
-<!-- - [Day 1](src/Days/D01.hs) : [Problem](https://adventofcode.com/2025/day/1) -->
+
 <!-- - [Day 2](src/Days/D02.hs) : [Problem](https://adventofcode.com/2025/day/2) -->
 <!-- - [Day 3](src/Days/D03.hs) : [Problem](https://adventofcode.com/2025/day/3) -->
 <!-- - [Day 4](src/Days/D04.hs) : [Problem](https://adventofcode.com/2025/day/4) -->

@@ -17,7 +17,7 @@ where
 
 import AOC ( Day )
 import qualified Days.D00 as D0
-import qualified Days.D00 as D1
+import qualified Days.D01 as D1
 
 
 -- | getDay returns the day for the given int.

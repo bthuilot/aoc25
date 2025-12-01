@@ -18,6 +18,21 @@ Maintainer  :  bryce@thuilot.io
 Stability   :  frozen
 Portability :  portable
 
+https://adventofcode.com/2025/day/1
+
+Day 1 was definitetly more challenging than past years.
+Part 1 was easy enough but I ended up making a bunch of
+little mistakes while solving part 2 that defininetly slowed me down.
+
+The final solution ended up being pretty simple:
+
+For part 1, check if the amount to rotate is equal to
+the distance from the dial to zero in the same direction.
+
+For part 2, check if the amount to rotate is equal or greater
+to the distance from the dail to zero, and additionally if its greater,
+check how many times the overflow can evenly divide into the length
+of the dial (i.e. 100).
 
 -}
 
@@ -25,19 +40,104 @@ module Days.D01 (
   Days.D01.part1, Days.D01.part2
   ) where
 
-import Data.Char ( toUpper )
+
 import AOC ( DayResult(Ok) )
 
 
--- Test Day
+-- | 'DialTurn' represents an instruction
+-- to turn the dial a given amount either
+-- right of left
+data DialTurn = L Integer | R Integer
+  deriving (Eq, Show)
+
+
+-- | 'dialStartingPoint' is the starting point of the dial
+dialStartingPoint :: Integer
+dialStartingPoint = 50
+
+-- | 'dialLength' is the length of the dial
+-- [0, 99] = 100
+dialLength :: Integer
+dialLength = 100
+
+-- | getTurnAmount returns the amount the 'DialTurn'
+-- will turn the dial
+getTurnAmount :: DialTurn -> Integer
+getTurnAmount (L amt) = amt
+getTurnAmount (R amt) = amt
+
+-- | parseInstruction parses a 'DialTurn'
+-- instruction from a line of the input string
+parseInstruction :: String -> DialTurn
+parseInstruction ('L' : amt) = L $ read amt
+parseInstruction ('R' : amt) = R $ read amt
+parseInstruction _ = error "invalid input"
+
+-- | parseInstructions parses 'DialTurn' instructions
+-- from the input
+parseInstructions :: String -> [DialTurn]
+parseInstructions = map parseInstruction . lines
+
+-- | 'turnDial' will turn the dial a given amount
+-- (wrapping around if the dial passes zero) and return
+-- the new dial
+turnDial :: DialTurn -> Integer -> Integer
+turnDial turn dial = rotate turn `mod` dialLength
+  where
+    rotate (L amt) = dial - amt
+    rotate (R amt) = dial + amt
+
+-- | 'PasswordMethod' represents a function that calculates
+-- the additional password count method for a given dial turn.
+-- it is given the 'DialTurn', the current dial and the result
+-- of turning the dial (i.e. the next dial
+type PasswordMethod = DialTurn -> Integer -> Integer -> Integer
+
+-- | 'exactPasswordMethod' is the password method for counting
+-- only when the dail reaches zero exactly as a result of the
+-- a turn
+exactPasswordMethod :: PasswordMethod
+exactPasswordMethod _ _ 0 = 1
+exactPasswordMethod _ _ _ = 0
+
+-- | 'x434C49434B' is the password method "0x434C49434B"
+-- described in the prompt. it will determine how many times
+-- zero is passed when turning the dial.
+x434C49434B :: PasswordMethod
+x434C49434B turn dial _ =
+  -- check to see if we make the dist from
+  -- current dial to zero
+  (if amt >= dist && dist /= 0 then 1 else 0)
+  +
+  -- additionally see how many more times it
+  -- passes zero after that
+  (if overflow > 0 then overflow `div` dialLength else 0)
+    where
+      amt = getTurnAmount turn -- amt to turn
+      dist = distToZero turn dial -- distance from current dial to zero
+      overflow = amt - dist -- additional distance after first zero pass
+      distToZero (L _) d = d 
+      distToZero (R _) d = (dialLength - d) `mod` 100
+  
+
+
+-- | 'crackSafe' will crack the password to a safe using a given
+-- 'PasswordMethod' and list of 'DialTurns'
+crackSafe :: PasswordMethod -> [DialTurn] -> Integer
+crackSafe pwdMethod = snd . foldl countPassword (dialStartingPoint, 0)
+  where
+    countPassword (dial, password) turn =
+      let nextDial = turnDial turn dial in
+        (nextDial, password + pwdMethod turn dial nextDial)
+    
 
 -- | 'part1' is the first part of the example solution
 -- which just returns the input string
 part1 :: String -> DayResult
-part1 = Ok
+part1 = Ok . show . crackSafe exactPasswordMethod . parseInstructions
 
 -- | 'part2' is the second part of the example solution
 -- which will convert all lower case letters in the input
 -- string to uppercase.
 part2 :: String -> DayResult
-part2 = Ok . map toUpper
+part2 = Ok . show . crackSafe x434C49434B . parseInstructions
