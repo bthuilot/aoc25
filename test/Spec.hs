@@ -36,6 +36,39 @@ testCases =
             , input = "hello, world!"
             , expected = "HELLO, WORLD!"
             }
+  , TestCase{ day = 1
+            , part = 1
+            , input = "L68\n" ++
+                      "L30\n" ++
+                      "R48\n" ++
+                      "L5\n" ++
+                      "R60\n" ++
+                      "L55\n" ++
+                      "L1\n" ++
+                      "L99\n" ++
+                      "R14\n" ++
+                      "L82\n"
+            , expected = "3"
+            }
+  , TestCase{ day = 1
+            , part = 2
+            , input = "L68\n" ++
+                      "L30\n" ++
+                      "R48\n" ++
+                      "L5\n" ++
+                      "R60\n" ++
+                      "L55\n" ++
+                      "L1\n" ++
+                      "L99\n" ++
+                      "R14\n" ++
+                      "L82\n"
+            , expected = "6"
+            }
+      , TestCase{ day = 1
+            , part = 2
+            , input = "R1000\n"
+            , expected = "10"
+            }
   ]
 
 data TestCase = TestCase
@@ -51,7 +84,7 @@ data TestResult = TestPass | TestFail String | TestSkippedNotImplemeted | TestSk
 printTestResult :: Int -> Int -> TestResult -> IO ()
 printTestResult dayNum partNum tr = putStrLn output
   where
-    output = "day " ++ show dayNum ++ " part " ++ show partNum ++ ": " ++ showResult tr
+    output = "day " ++ show dayNum ++ " part " ++ show (partNum + 1) ++ ": " ++ showResult tr
     showResult TestPass = "pass"
     showResult TestSkippedNotImplemeted = "skipped - not implemeted"
     showResult TestSkippedNoInput = "skipped - no input"
@@ -66,7 +99,7 @@ runTestCase tc = do
   where
     (i, e, dayNum, partNum) = (input tc, expected tc, day tc, part tc - 1)
     solution = fromMaybe notImplemented (getDay dayNum !? partNum)
-    evalResult (Ok output) = if e == output then TestPass else TestFail (e ++ " did not match " ++ output)
+    evalResult (Ok output) = if e == output then TestPass else TestFail (output ++ " did not match expected " ++ e)
     evalResult NotImplemented = TestSkippedNotImplemeted
     evalResult _ = TestFail "unable to run"
 

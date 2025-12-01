@@ -28,6 +28,7 @@ library
       AOC
       Days
       Days.D00
+      Days.D01
   other-modules:
       Paths_aoc25
   hs-source-dirs:
