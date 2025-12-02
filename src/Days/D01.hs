@@ -131,13 +131,12 @@ crackSafe pwdMethod = snd . foldl countPassword (dialStartingPoint, 0)
         (nextDial, password + pwdMethod turn dial nextDial)
     
 
--- | 'part1' is the first part of the example solution
--- which just returns the input string
+-- | 'part1' is the solution to the first part of
+-- the days challenge.
 part1 :: String -> DayResult
 part1 = Ok . show . crackSafe exactPasswordMethod . parseInstructions
 
--- | 'part2' is the second part of the example solution
--- which will convert all lower case letters in the input
--- string to uppercase.
+-- | 'part2' is the solution to the second part of
+-- the days challenge.
 part2 :: String -> DayResult
 part2 = Ok . show . crackSafe x434C49434B . parseInstructions
