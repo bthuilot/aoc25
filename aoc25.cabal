@@ -29,6 +29,9 @@ library
       Days
       Days.D00
       Days.D01
+      Days.D02
+      Utils.Lists
+      Utils.Strings
   other-modules:
       Paths_aoc25
   hs-source-dirs:

@@ -18,6 +18,7 @@ where
 import AOC ( Day )
 import qualified Days.D00 as D0
 import qualified Days.D01 as D1
+import qualified Days.D02 as D2
 
 
 -- | getDay returns the day for the given int.
@@ -38,7 +39,8 @@ days :: [Day]
 days =
   allDays ++ replicate (totalDays - length allDays) []
  where
-   allDays = [
-     [D1.part1, D1.part2]
+   allDays =
+     [ [D1.part1, D1.part2]
+     , [D2.part1, D2.part2]
      ]
      
