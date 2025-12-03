@@ -10,7 +10,7 @@
 
 {- |
 Module      :  D02
-Description :  Advent of Code 2025 day 1 implementation
+Description :  Advent of Code 2025 day 2 implementation
 Copyright   :  (c) Bryce Thuilot <bryce@thuilot.io>
 License     :  GPL-3.0-or-later
 
