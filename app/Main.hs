@@ -69,7 +69,7 @@ putDayHeader num = do
 readInputForDay :: Int -> IO (Maybe String)
 readInputForDay i = do
   result <- try $ openFile ("./inputs/" ++ showDayNum i ++ ".txt") ReadMode
-  either handleNotFound (\x -> fmap (Just) (hGetContents x)) result
+  either handleNotFound (fmap Just . hGetContents) result
   where
     handleNotFound e = if isDoesNotExistError e then return Nothing else ioError e
 
