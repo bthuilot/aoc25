@@ -21,6 +21,8 @@ import qualified Days.D01 as D1
 import qualified Days.D02 as D2
 import qualified Days.D03 as D3
 import qualified Days.D04 as D4
+import qualified Days.D05 as D5
+
 
 -- | getDay returns the day for the given int.
 -- will panic if the date is negative or greater than
@@ -44,5 +46,6 @@ days =
       [ [D1.part1, D1.part2],
         [D2.part1, D2.part2],
         [D3.part1, D3.part2],
-        [D4.part1, D4.part2]
+        [D4.part1, D4.part2],
+        [D5.part1, D5.part2]
       ]
