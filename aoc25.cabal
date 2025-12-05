@@ -31,6 +31,7 @@ library
       Days.D01
       Days.D02
       Days.D03
+      Days.D04
       Utils.Lists
       Utils.Strings
   other-modules:
@@ -39,7 +40,9 @@ library
       src
   ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints
   build-depends:
-      base >=4.7 && <5
+      array
+    , base >=4.7 && <5
+    , containers
   default-language: Haskell2010
 
 executable aoc25-exe
@@ -51,7 +54,9 @@ executable aoc25-exe
   ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       aoc25
+    , array
     , base >=4.7 && <5
+    , containers
   default-language: Haskell2010
 
 test-suite aoc25-test
@@ -64,5 +69,7 @@ test-suite aoc25-test
   ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       aoc25
+    , array
     , base >=4.7 && <5
+    , containers
   default-language: Haskell2010
