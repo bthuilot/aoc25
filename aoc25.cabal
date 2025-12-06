@@ -33,6 +33,7 @@ library
       Days.D03
       Days.D04
       Days.D05
+      Days.D06
       Utils.Lists
       Utils.Strings
   other-modules:

@@ -8,7 +8,7 @@
  visit: <https://www.gnu.org/licenses/gpl-3.0.html>.
 -}
 
-module Utils.Strings (wordsWhen) where
+module Utils.Strings (wordsWhen, isAllSpaces) where
 
 -- | 'wordsWhen' is the same as 'words' but the predicate
 -- can be passed in. Take from StackOverflow
@@ -18,3 +18,9 @@ wordsWhen p s =  case dropWhile p s of
                       "" -> []
                       s' -> w : wordsWhen p s''
                             where (w, s'') = break p s'
+
+-- | 'isAllSpaces' returns true if the input is
+-- a string that contains all space characters
+-- or is empty
+isAllSpaces :: String -> Bool
+isAllSpaces = all (== ' ')
