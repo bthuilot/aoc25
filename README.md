@@ -41,10 +41,11 @@ Below is an index to every completed day's implementation source code (containin
 - [Day 2](src/Days/D02.hs) : [Problem](https://adventofcode.com/2025/day/2)
 - [Day 3](src/Days/D03.hs) : [Problem](https://adventofcode.com/2025/day/3)
 - [Day 4](src/Days/D04.hs) : [Problem](https://adventofcode.com/2025/day/4)
+- [Day 5](src/Days/D05.hs) : [Problem](https://adventofcode.com/2025/day/5)
 
 ... other days not completed yet
 
-<!-- - [Day 5](src/Days/D05.hs) : [Problem](https://adventofcode.com/2025/day/5) -->
+
 <!-- - [Day 6](src/Days/D06.hs) : [Problem](https://adventofcode.com/2025/day/6) -->
 <!-- - [Day 7](src/Days/D07.hs) : [Problem](https://adventofcode.com/2025/day/7) -->
 <!-- - [Day 8](src/Days/D08.hs) : [Problem](https://adventofcode.com/2025/day/8) -->
