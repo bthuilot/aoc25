@@ -24,6 +24,7 @@ import qualified Days.D04 as D4
 import qualified Days.D05 as D5
 import qualified Days.D06 as D6
 import qualified Days.D07 as D7
+import qualified Days.D08 as D8
 
 
 -- | getDay returns the day for the given int.
@@ -51,5 +52,6 @@ days =
         [D4.part1, D4.part2],
         [D5.part1, D5.part2],
         [D6.part1, D6.part2],
-        [D7.part1, D7.part2]
+        [D7.part1, D7.part2],
+        [D8.part1, D8.part2]
       ]
