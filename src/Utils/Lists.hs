@@ -8,7 +8,9 @@
  visit: <https://www.gnu.org/licenses/gpl-3.0.html>.
 -}
 
-module Utils.Lists (groupsOf, allEqual) where
+module Utils.Lists (groupsOf, allEqual, uniquePairs) where
+
+import Data.List (tails)
 
 
 -- | 'groupsOf' splits a list of items
@@ -26,3 +28,9 @@ allEqual :: Eq a => [a] -> Bool
 allEqual [] = True
 allEqual [_] = True
 allEqual (a : recur@(b : _)) = (a == b) && allEqual recur
+
+
+-- | 'uniquePairs' will create unique pairings for each
+-- item in the given list with every other item in the list
+uniquePairs :: [a] -> [(a, a)]
+uniquePairs list = [ (x, y) | (x:rest) <- tails list, y <- rest ]
