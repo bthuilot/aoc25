@@ -33,6 +33,8 @@ import AOC ( DayResult(Ok) )
 
 import Utils.Strings (wordsWhen)
 import Utils.Lists (uniquePairs)
+import GHC.Float (int2Double)
+import Data.List (sort)
 
 type Tile = (Int,Int)
 
@@ -55,8 +57,35 @@ parsePerimeter (tile@(x1,y1) : nextTile@(x2,y2) : next) = (tile : tilesBetween) 
     yDist = y2 - y1
     tilesBetween = [ (dx + cx * x1, dy + cy * y1) |
                      dx <- [0..(abs xDist)], dy <- [0..(abs yDist)],
-                     cx <- [xDist `div` (abs xDist)], cy <- [yDist `div` (abs yDist)] ]
+                     cx <- [if xDist < 0 then (-1) else 1], cy <- [if yDist < 0 then (-1) else 1]]
+--                        yDist `div` (abs yDist)] ]
 parsePerimeter rest = rest
+
+tileIsRedOrGreen :: [Tile] -> [Tile] -> Tile -> Bool
+-- tileIsRedOrGreen _ [] _ = False
+tileIsRedOrGreen p redTiles  tile@(px, py) = tile `elem` p
+  || (odd . length . filter id $ zipWith intersects redTiles (tail $ cycle redTiles))
+  where
+    -- https://www.eecs.umich.edu/courses/eecs380/HANDOUTS/PROJ2/InsidePoly.html
+    intersects (x1,y1) (x2, y2) =
+      (((y1 <= py) && (py < y2)) ||
+      ((y2 <= py) && (py < y1)))
+      &&
+      ( (int2Double px) <
+        (int2Double ((x2 - x1) * (py - y1))) /
+        (int2Double (y2 - y1)) +
+        (int2Double x1))
+--      (y1 > py) /= (y2 > py) && px < (x2 - x1) * (py - y1) `div` (y2 - y1) + x1
+
+calculateContainedArea :: [Tile] -> [Tile] -> (Tile, Tile) -> Int
+calculateContainedArea p redTiles (c1@(x1, y1), c2@(x2, y2)) = if fullyContained then calculateRectangeArea (c1, c2) else 0
+  where
+    fullyContained = all (tileIsRedOrGreen p redTiles) (parsePerimeter [c1,c3,c2,c4])
+                     -- all (tileIsRedOrGreen redTiles) [c1,c2,c3,c4]
+                     -- && all (not . tileWithin c1 c2) redTiles
+    (c3, c4) = ((x2,y1),(x1,y2))
+    tileWithin (x1,y1) (x2, y2) (tx,ty) = tx < max x1 x2 && tx > min x1 x2 && ty < max y1 y2 && ty > min y1 y2
+
 
 -- | 'part1' is the solution to the first part of
 -- the days challenge.
@@ -66,4 +95,7 @@ part1 = Ok . show . maximum . (map calculateRectangeArea) . uniquePairs . parseR
 -- | 'part2' is the solution to the second part of
 -- the days challenge.
 part2 :: String -> DayResult
-part2 = Ok . show . parsePerimeter . parseRedTiles
+part2 i = Ok . show . take 15 . reverse . sort . (map (calculateContainedArea perimeter redTiles)) $ uniquePairs redTiles
+  where
+    perimeter = parsePerimeter redTiles
+    redTiles = parseRedTiles i
